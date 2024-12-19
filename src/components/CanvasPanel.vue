@@ -1,16 +1,31 @@
 <template>
-    <div class="canvas-panel">
-      <button class="panel-button">New Node</button>
-      <button class="panel-button">Erase</button>
-      <button class="panel-button">Center</button>
-    </div>
-    </template>
-  
-  <script>
-  export default {
-    name: 'CanvasPanel'
-  };
-  </script>
+  <div class="canvas-panel">
+    <button class="panel-button" @click="addNewNode">New Node</button>
+    <button class="panel-button" @click="eraseCanvas">Erase</button>
+    <button class="panel-button" @click="centerCanvas">Center</button>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'CanvasPanel',
+  methods: {
+    addNewNode() {
+      const x = Math.random() * window.innerWidth;
+      const y = Math.random() * window.innerHeight;
+      this.$parent.$refs.canvasLogic.addCell(x, y);
+    },
+    eraseCanvas() {
+      this.$parent.$refs.canvasLogic.cells = [];
+    },
+    centerCanvas() {
+      this.$parent.$refs.canvasLogic.offsetX = 0;
+      this.$parent.$refs.canvasLogic.offsetY = 0;
+      this.$parent.$refs.canvasLogic.zoomLevel = 1;
+    },
+  },
+};
+</script>
   
   <style scoped>
   .canvas-panel {
